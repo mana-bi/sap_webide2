@@ -1,0 +1,27 @@
+ID: HDST
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: DB
+   type: hdb
+   path: DB
+   requires:
+    - name: hdi_DB
+      properties:
+          TARGET_CONTAINER: ~{hdi-container-name}
+    - name: grant-service    
+
+resources:
+ - name: hdi_DB
+   parameters:
+      config:
+         schema: NXE
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
+   
+ - name: grant-service
+   type: org.cloudfoundry.existing-service
+   parameters:
+     service-name: grant-service
